@@ -489,22 +489,19 @@
       }
 
 
-      // Fetch latest YouTube video without jQuery or external RSS-to-JSON services
+      // Fetch latest YouTube video
       const channelID = "UCrEORrb1k1J8rZR6nMJWn2Q";
-      const reqURL = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+      const reqURL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
+      const apiURL = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(reqURL) + channelID;
 
-      fetch(reqURL)
-        .then(response => response.text()) // Get raw XML response
-        .then(str => new window.DOMParser().parseFromString(str, "text/xml")) // Parse XML
+      fetch(apiURL)
+        .then(response => response.json())
         .then(data => {
-          const entry = data.querySelector("entry > link"); // Find first video entry
-          if (entry) {
-            const link = entry.getAttribute("href"); // Get video link
-            const id = new URL(link).searchParams.get("v"); // Extract video ID
-            document.getElementById("youtube_video").src = `https://youtube.com/embed/${id}?controls=0&showinfo=0&rel=0`;
-          }
+          const link = data.items[0].link;
+          const id = link.substring(link.indexOf("=") + 1);
+          document.getElementById("youtube_video").src = `https://youtube.com/embed/${id}?controls=0&showinfo=0&rel=0`;
         })
-        .catch(console.error);
+        .catch(error => console.error("Error fetching YouTube video:", error));
 
 
       // add contact form submission hook

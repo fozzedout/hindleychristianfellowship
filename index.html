@@ -427,7 +427,7 @@
         const email = emailInput.value.trim();
         const comment = commentInput.value.trim();
 
-        if (name && message) {
+        if (name && email && comment) {
           const jsonData = JSON.stringify({ name, email, comment });
           fetch('https://hcf.xefig.workers.dev/contact-us', {
             method: 'POST',

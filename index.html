@@ -374,21 +374,21 @@
   
           <!-- Content Section -->
           <article class="p-8 space-y-6 flex justify-center">
-            <form class="space-y-4 w-3/4" aria-label="Contact form">
+            <form action="https://https://hcf.xefig.workers.dev/contact-us" method="POST" class="space-y-4 w-3/4" aria-label="Contact form">
               <p>Use this form below to get in contact with us.</p>
   
               <div>
                 <label for="name">Name</label>
                 <input id="name" type="text"
                   class="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                  placeholder="Name" required>
+                  placeholder="Name" required />
               </div>
   
               <div>
                 <label for="email">Email</label>
                 <input id="email" type="email"
                   class="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                  placeholder="Email" required>
+                  placeholder="Email" required />
               </div>
   
               <div>
@@ -397,9 +397,17 @@
                   class="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   required></textarea>
               </div>
+
+              <input type="hidden" id="ishuman" />
   
-              <button type="submit"
-                class="px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600">Submit</button>
+              <button 
+                type="submit"
+                class="
+                  px-4 py-2 rounded-lg 
+                  bg-gray-900 dark:bg-gray-700 text-white 
+                  hover:bg-gray-700 dark:hover:bg-gray-600">
+                Submit
+              </button>
             </form>
           </article>
         </section>

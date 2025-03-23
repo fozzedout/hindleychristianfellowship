@@ -417,28 +417,31 @@
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
-
-
       const form = document.getElementById('contact-form');
 
-  const sendMessage = () => {
-    const name = nameInput.value.trim();
-    const message = messageInput.value.trim();
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const commentInput = document.getElementById('comment');
 
-    if (name && message) {
-      const jsonData = JSON.stringify({ name, message });
-      fetch('https://hcf.xefig.workers.dev/contact-us', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: jsonData,
-      })
-        .then((response) => response.json())
-        .then((data) => 
-          form.innerText = data
-         )
-        .catch((error) => console.error(error));
-    }
-  };
+      const sendMessage = () => {
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const comment = commentInput.value.trim();
+
+        if (name && message) {
+          const jsonData = JSON.stringify({ name, email, comment });
+          fetch('https://hcf.xefig.workers.dev/contact-us', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData,
+          })
+            .then((response) => response.json())
+            .then((data) => 
+              form.innerText = data
+             )
+            .catch((error) => console.error(error));
+          }
+        };
 
 
 
@@ -486,15 +489,26 @@
         }
       }
 
-      // fetch latest youtube video
-      var channelID = "UCrEORrb1k1J8rZR6nMJWn2Q";
-      var reqURL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
-      $.getJSON("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(reqURL) + channelID, function (data) {
-        var link = data.items[0].link;
-        var id = link.substr(link.indexOf("=") + 1);
-        $("#youtube_video").attr("src", "https://youtube.com/embed/" + id + "?controls=0&showinfo=0&rel=0");
-      });
 
+      // Fetch latest YouTube video without jQuery or external RSS-to-JSON services
+      const channelID = "UCrEORrb1k1J8rZR6nMJWn2Q";
+      const reqURL = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+
+      fetch(reqURL)
+        .then(response => response.text()) // Get raw XML response
+        .then(str => new window.DOMParser().parseFromString(str, "text/xml")) // Parse XML
+        .then(data => {
+          const entry = data.querySelector("entry > link"); // Find first video entry
+          if (entry) {
+            const link = entry.getAttribute("href"); // Get video link
+            const id = new URL(link).searchParams.get("v"); // Extract video ID
+            document.getElementById("youtube_video").src = `https://youtube.com/embed/${id}?controls=0&showinfo=0&rel=0`;
+          }
+        })
+        .catch(console.error);
+
+
+      // add contact form submission hook
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         sendMessage();

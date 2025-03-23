@@ -366,7 +366,8 @@
         <section class="pt-20">
           <!-- Image Section -->
           <div class="relative h-[33vh] sm:h-[66vh] bg-cover bg-center"
-            style="background-image: url('person-smartphone-office-table.webp');" aria-label="Contact background image">
+            style="background-image: url('person-smartphone-office-table.webp');" 
+            aria-label="Contact background image">
             <div class="absolute inset-0 flex items-center justify-center backdrop-brightness-75">
               <h2 id="contact-us" class="text-5xl font-bold text-white drop-shadow-lg shadow-black">Contact</h2>
             </div>
@@ -374,7 +375,7 @@
   
           <!-- Content Section -->
           <article class="p-8 space-y-6 flex justify-center">
-            <form action="https://hcf.xefig.workers.dev/contact-us" method="POST" class="space-y-4 w-3/4" aria-label="Contact form">
+            <form id="contact-form" class="space-y-4 w-3/4" aria-label="Contact form">
               <p>Use this form below to get in contact with us.</p>
   
               <div>
@@ -398,7 +399,7 @@
                   required></textarea>
               </div>
 
-              <input type="hidden" id="ishuman" />
+              <input type="hidden" id="ishuman" value="" />
   
               <button 
                 type="submit"
@@ -416,7 +417,36 @@
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+
+
+      const form = document.getElementById('contact-form');
+
+  const sendMessage = () => {
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (name && message) {
+      const jsonData = JSON.stringify({ name, message });
+      fetch('https://hcf.xefig.workers.dev/contact-us', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: jsonData,
+      })
+        .then((response) => response.json())
+        .then((data) => 
+          form.innerText(data);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', async function () {
       // Burger menus
       // open
       const burger = document.querySelectorAll('.navbar-burger');
@@ -464,6 +494,12 @@
         var id = link.substr(link.indexOf("=") + 1);
         $("#youtube_video").attr("src", "https://youtube.com/embed/" + id + "?controls=0&showinfo=0&rel=0");
       });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendMessage();
+      });
+
     });
   </script>
 

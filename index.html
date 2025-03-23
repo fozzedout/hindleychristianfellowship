@@ -434,7 +434,7 @@
       })
         .then((response) => response.json())
         .then((data) => 
-          form.innerText(data);
+          form.innerText = data;
         })
         .catch((error) => console.error(error));
     }

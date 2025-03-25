@@ -14,14 +14,14 @@
       <!-- Fixed Navigation Header -->
         <nav class="flex flex-wrap gap-2 justify-between">
           <a class="p-4 leading-none flex items-center space-x-4" href="#welcome">
-            <svg class="h-8" alt="Logo" viewBox="0 0 88 145">
+            <svg class="h-8" height="32" alt="Logo" viewBox="0 0 88 145">
               <path style="fill:#156082;stroke-width:1" d="M36 0h16v145H36Z" />
               <path style="fill:#156082;stroke-width:1" d="M0 53V37h88v16z" />
             </svg>
             <p class="sm:text-xl md:text-2xl lg:text-3xl">Hindley Christian Fellowship</p>
           </a>
             <button class="navbar-burger flex md:hidden items-center text-blue-600 p-3">
-              <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <svg class="block h-4 w-4 fill-current" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
               </svg>
             </button>
@@ -29,14 +29,14 @@
             class="hidden md:flex md:items-center md:space-x-5">
             <li><a class="hover:text-gray-500" href="#introduction">About Us</a></li>
             <li class="text-gray-300">
-              <svg class="w-4 h-4" viewBox="0 0 24 24">
+              <svg class="w-4 h-4" height="16" viewBox="0 0 24 24">
                 <path id="menuBreak" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
               </svg>
             </li>
             <li><a class="hover:text-gray-500" href="#our-beliefs">Our Beliefs</a></li>
             <li class="text-gray-300">
-              <svg class="w-4 h-4" viewBox="0 0 24 24">
+              <svg class="w-4 h-4" height="16" viewBox="0 0 24 24">
                 <use href="#menuBreak" />
               </svg>
             </li>
@@ -48,14 +48,14 @@
           <nav class="fixed top-0 right-0 bottom-0 flex flex-col w-5/6 max-w-sm py-4 px-6 bg-white dark:bg-gray-900 border-r overflow-y-auto">
             <div class="flex items-center mb-8">
               <a class="mr-auto leading-none flex items-center space-x-4" href="#welcome">
-                <svg class="h-8" alt="Logo" viewBox="0 0 88 145">
+                <svg class="h-8" height="32" alt="Logo" viewBox="0 0 88 145">
                   <path style="fill:#156082;stroke-width:1" d="M36 0h16v145H36Z" />
                   <path style="fill:#156082;stroke-width:1" d="M0 53V37h88v16z" />
                 </svg>
                 <p>Hindley Christian Fellowship</p>
               </a>
               <button class="navbar-close">
-                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" fill="none" viewBox="0 0 24 24"
+                <svg height="24" class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -128,7 +128,7 @@
             <div class="absolute inset-0 h-full w-full">
               <picture>
                 <source srcset="hindley_cf2.webp" sizes="auto" />
-                <img class="absolute inset-0 h-full w-full object-cover" src="hindley_cf2.webp" alt="" />
+                <img class="absolute inset-0 h-full w-full object-cover" width="480" src="hindley_cf2.webp" alt="" />
               </picture>
             </div>
           </div>
@@ -366,7 +366,8 @@
         <section class="pt-20">
           <!-- Image Section -->
           <div class="relative h-[33vh] sm:h-[66vh] bg-cover bg-center"
-            style="background-image: url('person-smartphone-office-table.webp');" aria-label="Contact background image">
+            style="background-image: url('person-smartphone-office-table.webp');" 
+            aria-label="Contact background image">
             <div class="absolute inset-0 flex items-center justify-center backdrop-brightness-75">
               <h2 id="contact-us" class="text-5xl font-bold text-white drop-shadow-lg shadow-black">Contact</h2>
             </div>
@@ -374,7 +375,7 @@
   
           <!-- Content Section -->
           <article class="p-8 space-y-6 flex justify-center">
-            <form action="https://hcf.xefig.workers.dev/contact-us" method="POST" class="space-y-4 w-3/4" aria-label="Contact form">
+            <form id="contact-form" class="space-y-4 w-3/4" aria-label="Contact form">
               <p>Use this form below to get in contact with us.</p>
   
               <div>
@@ -398,7 +399,7 @@
                   required></textarea>
               </div>
 
-              <input type="hidden" id="ishuman" />
+              <input type="hidden" id="ishuman" value="" />
   
               <button 
                 type="submit"
@@ -414,9 +415,40 @@
       </div>
     </div>
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('contact-form');
+
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const commentInput = document.getElementById('comment');
+
+      const sendMessage = () => {
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const comment = commentInput.value.trim();
+
+        if (name && email && comment) {
+          const jsonData = JSON.stringify({ name, email, comment });
+          fetch('https://hcf.xefig.workers.dev/contact-us', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData,
+          })
+            .then((response) => response.json())
+            .then((data) => 
+              form.innerText = data
+             )
+            .catch((error) => console.error(error));
+          }
+        };
+
+
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', async function () {
       // Burger menus
       // open
       const burger = document.querySelectorAll('.navbar-burger');
@@ -456,14 +488,28 @@
         }
       }
 
-      // fetch latest youtube video
-      var channelID = "UCrEORrb1k1J8rZR6nMJWn2Q";
-      var reqURL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
-      $.getJSON("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(reqURL) + channelID, function (data) {
-        var link = data.items[0].link;
-        var id = link.substr(link.indexOf("=") + 1);
-        $("#youtube_video").attr("src", "https://youtube.com/embed/" + id + "?controls=0&showinfo=0&rel=0");
+
+      // Fetch latest YouTube video
+      const channelID = "UCrEORrb1k1J8rZR6nMJWn2Q";
+      const reqURL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
+      const apiURL = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(reqURL) + channelID;
+
+      fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+          const link = data.items[0].link;
+          const id = link.substring(link.indexOf("=") + 1);
+          document.getElementById("youtube_video").src = `https://youtube.com/embed/${id}?controls=0&showinfo=0&rel=0`;
+        })
+        .catch(error => console.error("Error fetching YouTube video:", error));
+
+
+      // add contact form submission hook
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendMessage();
       });
+
     });
   </script>
 

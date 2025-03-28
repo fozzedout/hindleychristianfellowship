@@ -19,7 +19,7 @@
   <div class="mx-auto flex h-screen max-w-7xl flex-col overflow-hidden">
     <div class="px-0 sm:px-4 md:px-6 lg:px-8">
       <!-- Fixed Navigation Header -->
-      <nav class="flex flex-wrap justify-between gap-2">
+      <nav class="sticky top-0 flex bg-white dark:bg-gray-900 flex-wrap justify-between gap-2">
         <a class="flex items-center space-x-4 p-4 leading-none" href="#welcome">
           <svg class="h-8" height="32" alt="Logo" viewBox="0 0 88 145">
             <path style="fill:#156082;stroke-width:1" d="M36 0h16v145H36Z"></path>
@@ -364,10 +364,11 @@
 
     document.addEventListener('DOMContentLoaded', async function () {
       // Burger menus
-      // open
       const burger = document.querySelectorAll('.navbar-burger');
       const menu = document.querySelectorAll('.navbar-menu');
-
+      const menuLinks = document.querySelectorAll('.navbar-menu a'); // Select all menu links
+      
+      // open
       if (burger.length && menu.length) {
         for (var i = 0; i < burger.length; i++) {
           burger[i].addEventListener('click', function () {
@@ -377,6 +378,18 @@
           });
         }
       }
+
+      // Close menu when clicking a link
+      if (menuLinks.length) {
+        for (let i = 0; i < menuLinks.length; i++) {
+          menuLinks[i].addEventListener('click', function () {
+            for (let j = 0; j < menu.length; j++) {
+              menu[j].classList.add('hidden'); // Add 'hidden' class to hide the menu
+            }
+          });
+        }
+      }
+
 
       // close
       const close = document.querySelectorAll('.navbar-close');

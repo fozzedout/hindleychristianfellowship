@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1000" height="1000"><style>
+    #light-icon {
+      display: inline;
+    }
+    #dark-icon {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #light-icon {
+        display: none;
+      }
+      #dark-icon {
+        display: inline;
+      }
+    }
+  </style><g id="light-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1000" height="1000"><g><g transform="matrix(1.25,0,0,1.25,133.125,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="587" height="800"><svg xmlns="http://www.w3.org/2000/svg" width="587" height="800" viewBox="0 0 88 145">
+    <path style="fill:#156082;stroke-width:0" d="M36 0h16v145H36Z"></path>
+    <path style="fill:#156082;stroke-width:0" d="M0 53V37h88v16z"></path>
+</svg></svg></g></g></svg></g><g id="dark-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1000" height="1000"><g><g transform="matrix(1.25,0,0,1.25,133.125,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="587" height="800"><svg width="587" height="800" viewBox="0 0 88 145" xmlns="http://www.w3.org/2000/svg">
+ <path d="M36 0h16v145H36Z" fill="#1c7fac"></path>
+ <path d="M0 53V37h88v16z" fill="#1c7fac"></path>
+</svg></svg></g></g></svg></g></svg>
